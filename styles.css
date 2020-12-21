@@ -1,0 +1,143 @@
+/* ~~~~~ GLOBAL RULES ~~~~~ */
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  font-family: "EB Garamond", serif;
+  margin: auto;
+  text-align: center;
+}
+
+body {
+  background: ghostwhite;
+}
+
+button,
+input {
+  font-size: 20px;
+  padding: 10px 20px;
+}
+
+button {
+  background: black;
+  border: none;
+  border-radius: 10px;
+  color: white;
+}
+
+button:hover {
+  background: darkslateblue;
+}
+
+.hidden {
+  display: none!important;
+}
+
+/* ~~~~~ MAIN POSTER SECTION ~~~~~ */
+.main-poster {
+  height: 100vh;
+}
+
+.poster {
+  background: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 20px auto;
+  padding: 50px 20px;
+  width: 70%;
+}
+
+.poster-img {
+  background-size: cover;
+  border: 2px solid white;
+  height: 450px;
+  width: 800px;
+}
+
+.poster-title,
+.poster-quote {
+  color: white;
+  line-height: 1;
+  width: 90%;
+}
+
+.poster-title {
+  font-size: 60px;
+  font-weight: normal;
+  letter-spacing: 20px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.main-poster button {
+  margin: 10px;
+}
+
+/* ~~~~~ POSTER FORM SECTION ~~~~~ */
+.team-form {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.team-form h2 {
+  margin-bottom: 30px;
+}
+
+.team-form form {
+  align-content: center;
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+}
+
+.team-form input {
+  display: block;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.team-form .divider {
+  border-bottom: 1px solid black;
+  margin: auto;
+  margin-bottom: 20px;
+  width: 400px;
+}
+
+/* ~~~~~ SAVED POSTER SECTION ~~~~~ */
+.saved-cards {
+  padding: 40px;
+}
+
+.saved-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+  padding: 20px;
+}
+
+.mini-cards {
+  background: black;
+  color: white;
+  height: 340px;
+  padding: 25px;
+  width: 425px;
+}
+
+.mini-card h1,
+.mini-card h2,
+.mini-card h4,
+.delete {
+  color: white;
+  line-height: 1;
+  width: 90%;
+}
+
+.mini-poster h1 {
+  font-size: 30px;
+  font-weight: normal;
+  letter-spacing: 5px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}

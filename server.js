@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const port = process.env.PORT || 3001;
 const app = express();
-const { users, sportTeams, animals } = require('./data.js');
+const { sportTeams } = require('./data.js');
 
 app.locals = {
   title: 'Network Request Practice',
