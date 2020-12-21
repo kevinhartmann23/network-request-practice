@@ -22,29 +22,14 @@ showForm.addEventListener('click', toggleFormPage)
 showMain.addEventListener('click', toggleFormPage)
 showSaved.addEventListener('click', toggleSavedPage)
 backToMain.addEventListener('click', toggleSavedPage)
-// makeCard.addEventListener('click', addTeamToSaved)
+makeCard.addEventListener('click', addTeamToSaved)
 
 //OPTIONS - POST
 const Promise = fetch('http://localhost:3001/api/v1/sport-teams')
   .then(response => response.json())
   .then(data => data.forEach(obj => currentData.push(obj)));
 
-let currentData = []
-
-let newObj = {
-    "id": Date.now(),
-    "name": teamName.value,
-    "head_coach": teamCoach.value,
-    "sport": teamSport.value
-  }
-
-const option = {
-  method: 'POST',
-  body: JSON.stringify(this.newObj),
-  headers: {
-    'Content-Type': 'application/json'
-  }
-};
+let currentData = [];
 
 //EVENT HANDLERS & HELPER FUNCTIONS
 function toggleFormPage(){
@@ -58,16 +43,6 @@ function toggleSavedPage(){
   createGrid();
 }
 
-// function addTeamToSaved(){
-//   debugger;
-//   const promise = fetch('http://localhost:3001/api/v1/sport-teams', this.option)
-//     .then(response => response.json())
-//     .then(data => console.log(data))
-//     .catch(err => console.log(err))
-//   return promise;
-//     // .then(joke => renderJoke(joke))
-//     // .catch(error => console.log(error));
-// }
 function createGrid(){
   cardsGrid.innerHTML = ""
   currentData.forEach(obj => {
@@ -81,9 +56,21 @@ function createGrid(){
       `
   })
 }
-// function populateGrid(){
-//   const promise = fetch('http://localhost:3001/api/v1/sport-teams')
-//     .then(response => response.json())
-//     .then(data => createGrid(data));
-//   return promise;
-// }
+
+function addTeamToSaved(){
+  let newObj = {
+    "id": Date.now(),
+    "name": teamName.value,
+    "head_coach": teamCoach.value,
+    "sport": teamSport.value
+  };
+  const option = {
+    method: 'POST',
+    body: JSON.stringify(newObj),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+  fetch('http://localhost:3001/api/v1/sport-teams', option)
+  return createGrid();
+}
