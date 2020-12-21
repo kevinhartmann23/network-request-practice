@@ -3,6 +3,7 @@ const mainPage = document.querySelector(".main-poster")
 const addTeamPage = document.querySelector(".team-form")
 const savedPage = document.querySelector(".saved-cards")
 const cardsGrid = document.querySelector(".saved-cards-grid")
+let miniCards = document.querySelector(".mini-card")
 
 //BUTTONS
 const showForm = document.querySelector(".show-form")
@@ -24,14 +25,30 @@ showSaved.addEventListener('click', toggleSavedPage)
 backToMain.addEventListener('click', toggleSavedPage)
 makeCard.addEventListener('click', addTeamToSaved)
 
-//OPTIONS - POST
-const Promise = fetch('http://localhost:3001/api/v1/sport-teams')
+//Globals
+
+let Promise = fetch('http://localhost:3001/api/v1/sport-teams')
   .then(response => response.json())
-  .then(data => data.forEach(obj => currentData.push(obj)));
+  .then(data => data.forEach(obj => {
+    if(!currentData.includes(obj)){
+      currentData.push(obj);
+    }
+  }));
 
 let currentData = [];
 
 //EVENT HANDLERS & HELPER FUNCTIONS
+// function getData(){
+//   let Promise = fetch('http://localhost:3001/api/v1/sport-teams')
+//     .then(response => response.json())
+//     .then(data => data.forEach(obj => {
+//       if(!currentData.includes(obj)){
+//         currentData.push(obj);
+//       }
+//     }));
+//     return Promise;
+// }
+
 function toggleFormPage(){
   mainPage.classList.toggle('hidden');
   addTeamPage.classList.toggle('hidden')
@@ -41,6 +58,7 @@ function toggleSavedPage(){
   mainPage.classList.toggle('hidden');
   savedPage.classList.toggle('hidden');
   createGrid();
+  interactWithSavedCards();
 }
 
 function createGrid(){
@@ -59,7 +77,7 @@ function createGrid(){
 
 function addTeamToSaved(){
   let newObj = {
-    "id": Date.now(),
+    "id": currentData.length + 1,
     "name": teamName.value,
     "head_coach": teamCoach.value,
     "sport": teamSport.value
@@ -72,5 +90,23 @@ function addTeamToSaved(){
     }
   };
   fetch('http://localhost:3001/api/v1/sport-teams', option)
-  return createGrid();
+}
+
+function interactWithSavedCards(){
+  miniCards = document.querySelectorAll(".mini-card")
+  return miniCards.forEach(card => {
+    console.log('CONNECTED')
+    card.addEventListener("dblclick", deleteMiniCard)
+  })
+}
+
+function deleteMiniCard(event){
+  const cardId = event.target.id || event.target.parentElement.id
+  const option2 = {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+  fetch(`http://localhost:3001/api/v1/sport-teams/${cardId}`, option2)
 }
