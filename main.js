@@ -30,24 +30,13 @@ makeCard.addEventListener('click', addTeamToSaved)
 let Promise = fetch('http://localhost:3001/api/v1/sport-teams')
   .then(response => response.json())
   .then(data => data.forEach(obj => {
-    if(!currentData.includes(obj)){
-      currentData.push(obj);
-    }
+    currentData = data;
+    createGrid();
   }));
 
 let currentData = [];
 
 //EVENT HANDLERS & HELPER FUNCTIONS
-// function getData(){
-//   let Promise = fetch('http://localhost:3001/api/v1/sport-teams')
-//     .then(response => response.json())
-//     .then(data => data.forEach(obj => {
-//       if(!currentData.includes(obj)){
-//         currentData.push(obj);
-//       }
-//     }));
-//     return Promise;
-// }
 
 function toggleFormPage(){
   mainPage.classList.toggle('hidden');
@@ -57,7 +46,6 @@ function toggleFormPage(){
 function toggleSavedPage(){
   mainPage.classList.toggle('hidden');
   savedPage.classList.toggle('hidden');
-  createGrid();
   interactWithSavedCards();
 }
 
@@ -95,7 +83,6 @@ function addTeamToSaved(){
 function interactWithSavedCards(){
   miniCards = document.querySelectorAll(".mini-card")
   return miniCards.forEach(card => {
-    console.log('CONNECTED')
     card.addEventListener("dblclick", deleteMiniCard)
   })
 }
@@ -109,4 +96,10 @@ function deleteMiniCard(event){
     }
   };
   fetch(`http://localhost:3001/api/v1/sport-teams/${cardId}`, option2)
+    .then(response => response.json())
+    .then(data => data.forEach(obj => {
+      currentData = data;
+      createGrid();
+      interactWithSavedCards();
+    }));
 }
