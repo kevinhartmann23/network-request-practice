@@ -26,13 +26,13 @@ backToMain.addEventListener('click', toggleSavedPage)
 makeCard.addEventListener('click', addTeamToSaved)
 
 //Globals
-
-let Promise = fetch('http://localhost:3001/api/v1/sport-teams')
+//function to return
+let teamsInfo = fetch('http://localhost:3001/api/v1/sport-teams')
   .then(response => response.json())
-  .then(data => data.forEach(obj => {
+  .then(data => {
     currentData = data;
     createGrid();
-  }));
+  });
 
 let currentData = [];
 
@@ -97,9 +97,9 @@ function deleteMiniCard(event){
   };
   fetch(`http://localhost:3001/api/v1/sport-teams/${cardId}`, option2)
     .then(response => response.json())
-    .then(data => data.forEach(obj => {
+    .then(data => {
       currentData = data;
       createGrid();
       interactWithSavedCards();
-    }));
+    });
 }
